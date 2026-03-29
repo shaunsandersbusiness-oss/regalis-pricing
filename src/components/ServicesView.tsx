@@ -37,7 +37,7 @@ export default function ServicesView({ market, tierIndex }: ServicesViewProps) {
         </div>
       </section>
 
-      {/* SECTION 3: FLOOR PLAN */}
+      {/* SECTION 2: FLOOR PLAN */}
       <section>
         <h2 className="text-white text-[32px] font-bold mb-10 text-center">Floor Plan</h2>
         <ServiceCard 
@@ -100,47 +100,14 @@ export default function ServicesView({ market, tierIndex }: ServicesViewProps) {
         </div>
       </section>
 
-      {/* SECTION 5: ADD-ONS */}
+      {/* SECTION 5: VIDEO */}
       <section>
         <div className="text-center mb-10">
-          <h2 className="text-white text-[32px] font-bold mb-2">Add-Ons</h2>
-          <p className="text-[#999] text-[16px]">Enhance any service or package</p>
-        </div>
-        
-        <div className="grid md:grid-cols-2 gap-6">
-          {[
-            { name: 'Virtual Staging', price: '$15/photo', desc: 'Digitally furnish empty rooms with realistic, high-quality furniture and decor. Modern, contemporary, traditional, or farmhouse styles available.' },
-            { name: 'Virtual Twilight', price: '$25/photo', desc: 'Convert any daytime exterior photo into a stunning twilight/dusk shot with warm glow and dramatic sky. No return visit needed.' },
-            { name: 'Same-Day Edited Delivery', price: '$75', desc: 'Fully edited photos delivered the same day. Shoot must be completed by 1:00 PM EST.' },
-            { name: 'Virtual Renovation', price: '$30/scene', desc: 'Digital renovation rendering — update kitchens, bathrooms, or living spaces with modern finishes to show buyers the potential.' },
-            { name: 'Custom Listing Website', price: '$150 standalone', desc: 'Branded single-property website with gallery, video, property details, and agent info. FREE with any discounted package.' },
-          ].map((addon, i) => (
-            <div key={i} className="bg-[#0a0a0a] border border-[#1a1a1a] rounded-xl p-6 flex flex-col">
-              <div className="flex justify-between items-baseline mb-3">
-                <h3 className="text-white text-[18px] font-bold">{addon.name}</h3>
-                <span className="text-[#c9a84c] font-bold">{addon.price}</span>
-              </div>
-              <p className="text-[#D4D4D4] text-[14px] leading-relaxed">{addon.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* SECTION 6: LISTING VIDEOS */}
-      <section>
-        <div className="text-center mb-10">
-          <h2 className="text-white text-[32px] font-bold mb-2">Listing Videos</h2>
-          <p className="text-[#999] text-[16px]">Professional video production for your property listings</p>
+          <h2 className="text-white text-[32px] font-bold mb-2">Video</h2>
+          <p className="text-[#999] text-[16px]">Professional video production for your property listings and brand</p>
         </div>
         
         <div className="space-y-8">
-          <ServiceCard 
-            title="Quick Tour" 
-            tagline="15-30 Second Social-Ready Walkthrough"
-            description="Short-form, vertical-format video walkthrough shot on professional equipment and edited with music and smooth transitions. Purpose-built for Instagram Reels, TikTok, Facebook Stories, and YouTube Shorts. This is NOT a slideshow of photos — it's a professionally shot, stabilized walkthrough designed to stop the scroll and generate engagement. Horizontal format also available."
-            price={market === 'NJ' ? '$150' : '$225'}
-          />
-
           <ServiceCard 
             title="Regalis Standard" 
             tagline="Professional Listing Video (45-75 seconds)"
@@ -156,6 +123,20 @@ export default function ServicesView({ market, tierIndex }: ServicesViewProps) {
           >
             <PriceTable market={market} njPrices={PRICING_DATA.NJ.video.cinematic} manPrices={PRICING_DATA.MAN.video.cinematic} highlightIndex={tierIndex} />
           </ServiceCard>
+
+          <ServiceCard 
+            title="Agent Branding Video" 
+            tagline="Your Personal Brand Film"
+            description="A professionally produced video featuring YOU — your story, your market expertise, your personality, and your value proposition. Designed for your website homepage, social media profiles, ad campaigns, and listing presentations. This is the video that introduces you to potential clients and builds trust before you ever meet them. It positions you as a polished, credible professional in a market full of agents with nothing but a headshot and a tagline."
+            price={market === 'NJ' ? '$600' : '$675'}
+          />
+
+          <ServiceCard 
+            title="Community Spotlight" 
+            tagline="Neighborhood Highlight Film"
+            description="A cinematic tour of the neighborhood or community you serve. Coffee shops, parks, schools, restaurants, nightlife, commuter routes — whatever makes your market special. Perfect for social media content, listing presentations, and establishing yourself as THE local expert. Pair this with your listing Cinematic and you're not just selling a house — you're selling a lifestyle."
+            price={market === 'NJ' ? '$550' : '$625'}
+          />
 
           <div className="bg-[#0a0a0a] border border-[#1a1a1a] rounded-xl p-6 md:p-8">
             <h3 className="text-white text-[22px] font-bold mb-4">Drone in Video</h3>
@@ -182,31 +163,35 @@ export default function ServicesView({ market, tierIndex }: ServicesViewProps) {
         </div>
       </section>
 
-      {/* SECTION 6: BRAND & COMMUNITY VIDEOS */}
+      {/* SECTION 6: À LA CARTE ADD-ONS */}
       <section>
         <div className="text-center mb-10">
-          <h2 className="text-white text-[32px] font-bold mb-2">Brand & Community Videos</h2>
-          <p className="text-[#999] text-[16px]">Video content that builds your personal brand and local authority</p>
+          <h2 className="text-white text-[32px] font-bold mb-2">À La Carte Add-Ons</h2>
+          <p className="text-[#999] text-[16px]">Enhance any service or package</p>
         </div>
-
-        <div className="space-y-8">
-          <ServiceCard 
-            title="Agent Branding Video" 
-            tagline="Your Personal Brand Film"
-            description="A professionally produced video featuring YOU — your story, your market expertise, your personality, and your value proposition. Designed for your website homepage, social media profiles, ad campaigns, and listing presentations. This is the video that introduces you to potential clients and builds trust before you ever meet them. It positions you as a polished, credible professional in a market full of agents with nothing but a headshot and a tagline."
-            price={market === 'NJ' ? '$600' : '$675'}
-          />
-
-          <ServiceCard 
-            title="Community Spotlight" 
-            tagline="Neighborhood Highlight Film"
-            description="A cinematic tour of the neighborhood or community you serve. Coffee shops, parks, schools, restaurants, nightlife, commuter routes — whatever makes your market special. Perfect for social media content, listing presentations, and establishing yourself as THE local expert. Pair this with your listing Cinematic and you're not just selling a house — you're selling a lifestyle."
-            price={market === 'NJ' ? '$500' : '$575'}
-          />
+        
+        <div className="grid md:grid-cols-2 gap-6">
+          {[
+            { name: 'Virtual Staging', price: '$25/photo', desc: 'Digitally furnish empty rooms with realistic, high-quality furniture and decor. Modern, contemporary, traditional, or farmhouse styles available.' },
+            { name: 'Virtual Twilight', price: '$25/photo', desc: 'Convert any daytime exterior photo into a stunning twilight/dusk shot with warm glow and dramatic sky. No return visit needed.' },
+            { name: 'Virtual Renovation', price: '$30/scene', desc: 'Digital renovation rendering — update kitchens, bathrooms, or living spaces with modern finishes to show buyers the potential.' },
+            { name: 'Object / Clutter Removal', price: '$15/photo', desc: 'Digitally remove unwanted items, clutter, or personal belongings from photos to create a cleaner presentation.' },
+            { name: 'Same-Day Photo Delivery', price: '$35', desc: 'Fully edited photos delivered the same day. Shoot must be completed by 1:00 PM EST.' },
+            { name: 'Next-Day Video Delivery', price: '$150', desc: 'Expedited video editing and delivery within 24 hours of the shoot.' },
+            { name: 'Custom Listing Website', price: '$150 standalone', desc: 'Branded single-property website with gallery, video, property details, and agent info. FREE with any photo or video service.' },
+          ].map((addon, i) => (
+            <div key={i} className="bg-[#0a0a0a] border border-[#1a1a1a] rounded-xl p-6 flex flex-col">
+              <div className="flex justify-between items-baseline mb-3">
+                <h3 className="text-white text-[18px] font-bold">{addon.name}</h3>
+                <span className="text-[#c9a84c] font-bold">{addon.price}</span>
+              </div>
+              <p className="text-[#D4D4D4] text-[14px] leading-relaxed">{addon.desc}</p>
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* SECTION 8: HOW DISCOUNTS WORK */}
+      {/* SECTION 7: HOW DISCOUNTS WORK */}
       <section className="bg-[#0a0a0a] border border-[#1a1a1a] rounded-xl p-8 md:p-12">
         <h2 className="text-white text-[32px] font-bold mb-8 text-center">How Discounts Work</h2>
         <p className="text-[#D4D4D4] text-center mb-8 max-w-2xl mx-auto">
@@ -225,8 +210,7 @@ export default function ServicesView({ market, tierIndex }: ServicesViewProps) {
               {[
                 { combo: 'Any photo package + any photo add-on (no video)', disc: '10% off entire order' },
                 { combo: 'Any photo package + any video', disc: '15% off entire order' },
-                { combo: 'Gold photos + any video', disc: '20% off entire order' },
-                { combo: 'Gold photos + Cinematic + second video', disc: '30% off entire order' },
+                { combo: 'Gold photos + Cinematic + second video (Crown)', disc: '20% off entire order' },
               ].map((row, i) => (
                 <tr key={i} className={i % 2 === 0 ? 'bg-[#0a0a0a]' : 'bg-[#0f0f0f]'}>
                   <td className="p-4 border-t border-[#1a1a1a] text-[#D4D4D4] text-[15px]">{row.combo}</td>
@@ -239,7 +223,8 @@ export default function ServicesView({ market, tierIndex }: ServicesViewProps) {
 
         <div className="space-y-2 text-center text-[#D4D4D4] text-[15px]">
           <p>The discount applies to your <strong>entire order</strong> — every service and add-on. Bronze photos are required for any discount.</p>
-          <p>At 20% and 30% tiers, you also receive 2 Twilight Exterior Photos and a Custom Listing Website at no additional charge.</p>
+          <p>At the 20% tier, you also receive 2 Twilight Exterior Photos at no additional charge.</p>
+          <p>A Custom Listing Website is <strong>FREE</strong> with any photo or video service at all discount tiers.</p>
         </div>
 
         <div className="text-center mt-8">

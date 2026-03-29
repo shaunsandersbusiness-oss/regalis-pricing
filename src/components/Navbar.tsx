@@ -1,99 +1,87 @@
-import React, { useState } from 'react';
-import { Menu, X } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
-
-const NAV_LINKS = [
-  { name: 'Home', href: 'https://www.regalisrealtymedia.com' },
-  { name: 'Portfolio', href: 'https://regalisrealtymedia25.pixieset.com/regalisrealtymediaportfolio/compassphotos/' },
-  { name: 'Pricing', href: 'https://pricing.regalisrealtymedia.com', active: true },
-  { name: 'Calculator', href: 'https://calculator.regalisrealtymedia.com' },
-  { name: 'Catalog', href: 'https://catalog.regalisrealtymedia.com' },
-  { name: 'Branding', href: 'https://branding.regalisrealtymedia.com' },
-  { name: 'Portal', href: 'https://portal.regalisrealtymedia.com' },
-  { name: 'Contact', href: 'https://www.regalisrealtymedia.com/calendar' },
-];
+import React, { useEffect } from 'react';
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
+  useEffect(() => {
+    // ===== REGALIS UNIVERSAL NAVBAR JS =====
+    const hamburger = document.getElementById('navHamburger');
+    const navLinks = document.getElementById('navLinks');
+    const overlay = document.getElementById('navOverlay');
+
+    if (!hamburger || !navLinks || !overlay) return;
+
+    function openMenu() {
+      hamburger!.classList.add('open');
+      navLinks!.classList.add('open');
+      overlay!.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMenu() {
+      hamburger!.classList.remove('open');
+      navLinks!.classList.remove('open');
+      overlay!.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function toggleMenu() {
+      if (navLinks!.classList.contains('open')) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    }
+
+    hamburger.addEventListener('click', toggleMenu);
+    overlay.addEventListener('click', closeMenu);
+
+    // Close menu when a link is clicked
+    const links = navLinks.querySelectorAll('.nav-link');
+    links.forEach(function(link) {
+      link.addEventListener('click', closeMenu);
+    });
+
+    // Set active page — CHANGE THE VALUE BELOW FOR EACH APP
+    const activeLink = document.querySelector('.nav-link[data-page="pricing"]');
+    if (activeLink) {
+      activeLink.classList.add('active');
+    }
+
+    return () => {
+      hamburger!.removeEventListener('click', toggleMenu);
+      overlay!.removeEventListener('click', closeMenu);
+      links.forEach(function(link) {
+        link.removeEventListener('click', closeMenu);
+      });
+    };
+  }, []);
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 h-[70px] bg-black/85 backdrop-blur-[20px] border-b border-[#c9a84c]/15 flex items-center justify-between px-6 md:px-12">
-        {/* Logo */}
-        <a href="https://www.regalisrealtymedia.com" className="flex items-center">
-          <img 
-            src="https://cdn.prod.website-files.com/6695980889d8d99cedb29bc7/677588ce72f981235e0deeb9_Regalis%20Realty%20Logo%20Symbol.png" 
-            alt="Regalis Realty Media" 
-            className="h-10 w-auto"
-          />
-        </a>
-
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-8">
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className={`text-[14px] font-medium transition-colors duration-200 ${
-                link.active 
-                  ? 'text-[#c9a84c] border-b-2 border-[#c9a84c]' 
-                  : 'text-[#D4D4D4] hover:text-[#c9a84c]'
-              }`}
-            >
-              {link.name}
-            </a>
-          ))}
+      <nav className="regalis-nav" id="regalisNav">
+        <div className="nav-inner">
+          <a href="https://www.regalisrealtymedia.com" className="nav-logo">
+            <img src="https://cdn.prod.website-files.com/6695980889d8d99cedb29bc7/66c7f601fff376e4c95274b3_Regalis%20Realty%20Main%20Logo%20(1).png" alt="Regalis Realty Media" className="nav-logo-img" />
+          </a>
+          <div className="nav-links" id="navLinks">
+            <a href="https://www.regalisrealtymedia.com" className="nav-link" data-page="home">Home</a>
+            <a href="https://regalisrealtymedia25.pixieset.com/regalisrealtymediaportfolio/compassphotos/" className="nav-link" data-page="portfolio" target="_blank" rel="noreferrer">Portfolio</a>
+            <a href="https://pricing.regalisrealtymedia.com" className="nav-link" data-page="pricing">Pricing</a>
+            <a href="https://calculator.regalisrealtymedia.com" className="nav-link" data-page="calculator">Calculator</a>
+            <a href="https://catalog.regalisrealtymedia.com" className="nav-link" data-page="catalog">Catalog</a>
+            <a href="https://branding.regalisrealtymedia.com" className="nav-link" data-page="branding">Branding</a>
+            <a href="https://portal.regalisrealtymedia.com" className="nav-link" data-page="portal">Portal</a>
+            <a href="https://contactus.regalisrealtymedia.com" className="nav-link" data-page="contact">Contact</a>
+            <a href="https://prep.regalisrealtymedia.com" className="nav-link" data-page="checklist">Listing Checklist</a>
+          </div>
+          <button className="nav-hamburger" id="navHamburger" aria-label="Toggle menu">
+            <span className="hamburger-line"></span>
+            <span className="hamburger-line"></span>
+            <span className="hamburger-line"></span>
+          </button>
         </div>
-
-        {/* Mobile Menu Button */}
-        <button 
-          className="md:hidden text-[#c9a84c]"
-          onClick={() => setIsOpen(true)}
-        >
-          <Menu size={28} />
-        </button>
       </nav>
-
-      {/* Mobile Menu Overlay */}
-      <AnimatePresence>
-        {isOpen && (
-          <>
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setIsOpen(false)}
-              className="fixed inset-0 bg-black/50 z-50 md:hidden backdrop-blur-sm"
-            />
-            <motion.div
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 bottom-0 w-[300px] bg-[#0a0a0a] z-50 border-l border-[#c9a84c]/20 p-6 flex flex-col"
-            >
-              <div className="flex justify-end mb-8">
-                <button onClick={() => setIsOpen(false)} className="text-[#c9a84c]">
-                  <X size={28} />
-                </button>
-              </div>
-              <div className="flex flex-col gap-6">
-                {NAV_LINKS.map((link) => (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    className={`text-[18px] font-medium transition-colors ${
-                      link.active ? 'text-[#c9a84c]' : 'text-[#D4D4D4]'
-                    }`}
-                  >
-                    {link.name}
-                  </a>
-                ))}
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+      <div className="nav-overlay" id="navOverlay"></div>
     </>
   );
 }
+

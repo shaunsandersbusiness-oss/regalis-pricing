@@ -18,7 +18,7 @@ export default function App() {
       <Background />
       <Navbar />
 
-      <main className="flex-grow pt-[100px] px-4 md:px-8 lg:px-12 max-w-7xl mx-auto w-full pb-[70px] md:pb-0">
+      <main className="flex-grow pt-28 px-4 md:px-8 lg:px-12 max-w-7xl mx-auto w-full pb-[70px] md:pb-0">
         
         {/* HERO */}
         <div className="text-center mb-12">
@@ -85,6 +85,16 @@ export default function App() {
 
         {/* Desktop Sqft Selector (Visible on Desktop, Hidden on Mobile) */}
         <DesktopSqftSelector tierIndex={tierIndex} setTierIndex={setTierIndex} />
+
+        {/* 5,000+ Sqft Banner */}
+        {tierIndex === 5 && (
+          <div className="bg-[#c9a84c]/10 border border-[#c9a84c]/30 rounded-xl p-6 mb-8 text-center max-w-3xl mx-auto animate-in fade-in slide-in-from-top-2 duration-500">
+            <h3 className="text-[#c9a84c] text-[20px] font-bold mb-2">Custom Quote Required</h3>
+            <p className="text-[#D4D4D4] text-[16px]">
+              Properties over 5,000 sqft require a custom quote. Call <a href="tel:9176838034" className="text-white font-bold hover:underline">(917) 683-8034</a> or email <a href="mailto:contact@regalisrealtymedia.com" className="text-white font-bold hover:underline">contact@regalisrealtymedia.com</a>.
+            </p>
+          </div>
+        )}
 
         {/* CONTENT AREA */}
         <div className="min-h-[600px]">

@@ -5,10 +5,9 @@ import { Market, TierIndex, TIERS } from '../data/pricingData';
 interface ComparisonTableProps {
   market: Market;
   tierIndex: TierIndex;
-  setTierIndex: (index: TierIndex) => void;
 }
 
-export default function ComparisonTable({ market, tierIndex, setTierIndex }: ComparisonTableProps) {
+export default function ComparisonTable({ market, tierIndex }: ComparisonTableProps) {
   
   const renderCheck = (isGold = false) => (
     <div className="flex justify-center">
@@ -28,20 +27,6 @@ export default function ComparisonTable({ market, tierIndex, setTierIndex }: Com
 
   return (
     <div className="w-full">
-      {/* Property Size Selector for Table */}
-      <div className="flex justify-end mb-4 items-center gap-3">
-        <label className="text-[#999999] text-[14px]">Property Size:</label>
-        <select 
-          value={tierIndex}
-          onChange={(e) => setTierIndex(Number(e.target.value) as TierIndex)}
-          className="bg-[#111] border border-[#333] text-white rounded px-3 py-2 text-[14px] focus:outline-none focus:border-[#c9a84c]"
-        >
-          {TIERS.map((tier, i) => (
-            <option key={i} value={i}>{tier}</option>
-          ))}
-        </select>
-      </div>
-
       <div className="overflow-x-auto rounded-xl border border-[#1a1a1a]">
         <table className="w-full min-w-[800px] border-collapse border-spacing-0">
           <thead>
@@ -62,20 +47,15 @@ export default function ComparisonTable({ market, tierIndex, setTierIndex }: Com
           </thead>
           <tbody>
             {[
-              { label: 'Interior & Exterior Photos', ess: 'Silver (Bronze + FP)', sig: 'Gold (Bronze + FP + Drone + 3D)', crn: 'Gold' },
-              { label: 'Floor Plan (2D Marketing)', ess: true, sig: true, crn: true, note: '(Silver/Gold)' },
-              { label: 'Drone Aerial Stills', ess: false, sig: true, crn: true, note: '(Gold)' },
-              { label: '3D Tour + Interactive Walkthrough', ess: false, sig: true, crn: true, note: '(Gold)' },
-              { label: '2 Twilight Exterior Photos', ess: false, sig: 'Complimentary', crn: 'Complimentary' },
-              { label: 'Quick Tour Video', ess: true, sig: false, crn: false },
-              { label: 'Regalis Cinematic', ess: false, sig: true, crn: true },
-              { label: 'Standard, Branding, or Spotlight (pick 1)', ess: false, sig: false, crn: true },
-              { label: `Drone in Video (${market === 'NJ' ? 'NJ' : 'Manhattan'})`, 
-                ess: market === 'NJ' ? 'Included FREE' : '$100 add-on', 
-                sig: market === 'NJ' ? 'Included FREE' : '$100 add-on', 
-                crn: market === 'NJ' ? 'Included FREE' : '$100 add-on' 
-              },
-              { label: 'Custom Listing Website', ess: 'Included', sig: 'Included', crn: 'Included' },
+              { label: 'Silver Photos', ess: true, sig: false, crn: false },
+              { label: 'Gold Photos', ess: false, sig: true, crn: true },
+              { label: 'Floor Plan', ess: true, sig: true, crn: true },
+              { label: 'Custom Listing Website', ess: true, sig: true, crn: true },
+              { label: 'Drone Photos', ess: false, sig: true, crn: true },
+              { label: '3D Tour', ess: false, sig: true, crn: true },
+              { label: 'Standard Video', ess: false, sig: true, crn: 'Included (Choice)' },
+              { label: 'Cinematic Video', ess: false, sig: false, crn: true },
+              { label: 'Agent Branding OR Community Spotlight Video', ess: false, sig: false, crn: 'Choice (+$200)' },
             ].map((row, idx) => (
               <tr key={idx} className={idx % 2 === 0 ? 'bg-[#0a0a0a]' : 'bg-[#0f0f0f]'}>
                 <td className="p-4 border-t border-[#1a1a1a] text-[#D4D4D4] text-[15px] font-medium">
