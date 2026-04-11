@@ -105,27 +105,126 @@
     }
     .section { margin-bottom: 80px; }
 
-    /* Nav */
-    .nav {
-      position: fixed; top: 0; left: 0; right: 0; height: 70px;
-      background: rgba(0,0,0,0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(201,168,76,0.15);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 24px; z-index: 100;
+    /* ── Nav Bar ─────────────────────────────────────────────── */
+    .regalis-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 70px;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+      z-index: 1000;
     }
-    .nav-logo img { height: 32px; }
-    .nav-links { display: flex; gap: 24px; align-items: center; }
+
+    .nav-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+    }
+
+    /* Logo */
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+
+    .nav-logo-img {
+      height: 36px;
+      width: auto;
+      display: block;
+    }
+
+    /* Link list */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Individual links */
     .nav-link {
-      color: var(--white); text-decoration: none; font-size: 15px; font-weight: 600;
-      transition: color 0.2s;
+      font-family: 'Inter', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: #D4D4D4;
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      padding-bottom: 4px;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s ease, border-color 0.2s ease;
+      white-space: nowrap;
     }
-    .nav-link:hover { color: var(--gold); }
-    .nav-link.active { color: var(--gold); border-bottom: 2px solid var(--gold); padding-bottom: 23px; margin-bottom: -25px; }
-    .hamburger { display: none; background: none; border: none; color: var(--white); cursor: pointer; padding: 8px; }
-    .hamburger svg { width: 24px; height: 24px; }
+
+    /* Hover */
+    .nav-link:hover {
+      color: #c9a84c;
+    }
+
+    /* Active page — DESKTOP: gold text + 2px gold underline */
+    .nav-link.active {
+      color: #c9a84c;
+      border-bottom: 2px solid #c9a84c;
+    }
+
+    /* Hamburger */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 24px;
+      height: 18px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      flex-shrink: 0;
+    }
+
+    .hamburger-line {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: #D4D4D4;
+      border-radius: 2px;
+      transition: all 0.25s ease;
+      transform-origin: center;
+    }
+
+    .nav-hamburger.open .hamburger-line:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+    .nav-hamburger.open .hamburger-line:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+    .nav-hamburger.open .hamburger-line:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+
     .nav-overlay {
-      display: none; position: fixed; top: 70px; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.5); z-index: 98;
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 998;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .nav-overlay.open {
+      opacity: 1;
     }
 
     /* Controls */
@@ -244,16 +343,63 @@
       .container { padding: 48px 16px; }
       .card { padding: 20px; }
       .grid-2, .grid-3 { grid-template-columns: 1fr; }
-      .nav-links {
-        display: none; position: absolute; top: 70px; left: 0; right: 0;
-        background: rgba(0,0,0,0.95); flex-direction: column; padding: 20px;
-        border-bottom: 1px solid var(--border); z-index: 99;
+      .regalis-nav {
+        height: 60px;
       }
-      .nav-links.active { display: flex; }
-      .nav-link { padding: 12px 0; border-bottom: 1px solid var(--border); width: 100%; }
-      .nav-link.active { border-bottom: none; border-left: 3px solid var(--gold); padding-left: 12px; margin-bottom: 0; padding-bottom: 12px; }
-      .hamburger { display: block; }
-      .nav-overlay.active { display: block; }
+      body {
+        padding-top: 60px;
+      }
+      .nav-inner {
+        padding: 0 20px;
+      }
+      .nav-logo-img {
+        height: 30px;
+      }
+      .nav-links {
+        position: fixed;
+        top: 60px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.97);
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+        padding: 16px 0;
+        z-index: 999;
+        transform: translateX(-100%);
+        transition: transform 0.25s ease;
+        overflow-y: auto;
+        display: flex;
+      }
+      .nav-links.open {
+        transform: translateX(0);
+      }
+      .nav-link {
+        display: block;
+        width: 100%;
+        padding: 14px 24px;
+        font-size: 15px;
+        border-bottom: none;
+        border-left: 3px solid transparent;
+        color: #D4D4D4;
+      }
+      .nav-link:hover {
+        color: #c9a84c;
+        background: rgba(201, 168, 76, 0.05);
+      }
+      .nav-link.active {
+        color: #c9a84c;
+        border-bottom: none;
+        border-left: 3px solid #c9a84c;
+        background: rgba(201, 168, 76, 0.05);
+      }
+      .nav-hamburger {
+        display: flex;
+      }
+      .nav-overlay {
+        display: block;
+      }
       .controls { padding: 16px 0; }
       .sqft-btn { padding: 6px 12px; font-size: 13px; }
     }
@@ -268,26 +414,62 @@
     <div class="particles"></div>
   </div>
 
-  <!-- Nav -->
-  <nav class="nav">
-    <a href="https://www.regalisrealtymedia.com" class="nav-logo">
-      <img src="https://cdn.prod.website-files.com/6695980889d8d99cedb29bc7/677588ce72f981235e0deeb9_Regalis%20Realty%20Logo%20Symbol.png" alt="Regalis Logo">
-    </a>
-    <div class="nav-links" id="nav-links">
-      <a href="https://www.regalisrealtymedia.com" class="nav-link">Home</a>
-      <a href="https://regalisrealtymedia25.pixieset.com/regalisrealtymediaportfolio/compassphotos/" class="nav-link" target="_blank">Portfolio</a>
-      <a href="https://pricing.regalisrealtymedia.com" class="nav-link active">Pricing</a>
-      <a href="https://calculator.regalisrealtymedia.com" class="nav-link">Calculator</a>
-      <a href="https://catalog.regalisrealtymedia.com" class="nav-link">Catalog</a>
-      <a href="https://branding.regalisrealtymedia.com" class="nav-link">Branding</a>
-      <a href="https://portal.regalisrealtymedia.com" class="nav-link">Portal</a>
-      <a href="https://www.regalisrealtymedia.com/calendar" class="nav-link">Contact</a>
+  <!-- ═══════════════════════════════════════════════════════
+       REGALIS REALTY MEDIA — UNIVERSAL NAVBAR COMPONENT v1.0
+       ═══════════════════════════════════════════════════════ -->
+  <nav class="regalis-nav" id="regalisNav">
+    <div class="nav-inner">
+      <!-- Logo -->
+      <a href="https://www.regalisrealtymedia.com" class="nav-logo">
+        <img
+          src="https://cdn.prod.website-files.com/6695980889d8d99cedb29bc7/66c7f601fff376e4c95274b3_Regalis%20Realty%20Main%20Logo%20(1).png"
+          alt="Regalis Realty Media"
+          class="nav-logo-img"
+        />
+      </a>
+
+      <!-- Desktop + Mobile links -->
+      <div class="nav-links" id="navLinks">
+        <a href="https://www.regalisrealtymedia.com"
+           class="nav-link" data-page="home">Home</a>
+
+        <a href="https://regalisrealtymedia25.pixieset.com/regalisrealtymediaportfolio/compassphotos/"
+           class="nav-link" data-page="portfolio"
+           target="_blank" rel="noreferrer">Portfolio</a>
+
+        <a href="https://pricing.regalisrealtymedia.com"
+           class="nav-link active" data-page="pricing">Pricing</a>
+
+        <a href="https://calculator.regalisrealtymedia.com"
+           class="nav-link" data-page="calculator">Calculator</a>
+
+        <a href="https://catalog.regalisrealtymedia.com"
+           class="nav-link" data-page="catalog">Catalog</a>
+
+        <a href="https://branding.regalisrealtymedia.com"
+           class="nav-link" data-page="branding">Branding</a>
+
+        <a href="https://portal.regalisrealtymedia.com"
+           class="nav-link" data-page="portal">Portal</a>
+
+        <a href="https://contactus.regalisrealtymedia.com"
+           class="nav-link" data-page="contact">Contact</a>
+
+        <a href="https://prep.regalisrealtymedia.com"
+           class="nav-link" data-page="checklist">Listing Checklist</a>
+      </div>
+
+      <!-- Hamburger — mobile only -->
+      <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
     </div>
-    <button class="hamburger" id="hamburger">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
-    </button>
   </nav>
-  <div class="nav-overlay" id="nav-overlay"></div>
+
+  <!-- Mobile overlay -->
+  <div class="nav-overlay" id="navOverlay"></div>
 
   <!-- Controls -->
   <div class="controls">
@@ -853,23 +1035,35 @@
         btn.addEventListener('click', (e) => setTier(e.target.dataset.tier));
       });
       
-      const hamburger = document.getElementById('hamburger');
-      const navLinks = document.getElementById('nav-links');
-      const navOverlay = document.getElementById('nav-overlay');
-      
-      function toggleMenu() {
-        navLinks.classList.toggle('active');
-        navOverlay.classList.toggle('active');
-        document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+      const hamburger = document.getElementById('navHamburger');
+      const navLinks  = document.getElementById('navLinks');
+      const overlay   = document.getElementById('navOverlay');
+
+      if (hamburger && navLinks && overlay) {
+        function openMenu() {
+          hamburger.classList.add('open');
+          navLinks.classList.add('open');
+          overlay.classList.add('open');
+          document.body.style.overflow = 'hidden';
+        }
+
+        function closeMenu() {
+          hamburger.classList.remove('open');
+          navLinks.classList.remove('open');
+          overlay.classList.remove('open');
+          document.body.style.overflow = '';
+        }
+
+        function toggleMenu() {
+          navLinks.classList.contains('open') ? closeMenu() : openMenu();
+        }
+
+        hamburger.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', closeMenu);
+
+        const links = navLinks.querySelectorAll('.nav-link');
+        links.forEach(link => link.addEventListener('click', closeMenu));
       }
-      
-      hamburger.addEventListener('click', toggleMenu);
-      navOverlay.addEventListener('click', toggleMenu);
-      document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-          if (navLinks.classList.contains('active')) toggleMenu();
-        });
-      });
 
       updatePrices();
     });
