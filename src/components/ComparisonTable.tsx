@@ -34,41 +34,35 @@ export default function ComparisonTable({ market, tierIndex }: ComparisonTablePr
               <th className="bg-[#111] text-[#c9a84c] text-[12px] font-bold uppercase tracking-wider p-4 text-left w-1/4">
                 SERVICE
               </th>
-              <th className="bg-[#111] text-[#c9a84c] text-[12px] font-bold uppercase tracking-wider p-4 text-center w-1/4">
-                ESSENTIAL
+              <th className="bg-[#111] text-[#c9a84c] text-[12px] font-bold uppercase tracking-wider p-4 text-center w-1/3">
+                PRESTIGE
               </th>
-              <th className="bg-[#111] bg-opacity-100 text-[#c9a84c] text-[12px] font-bold uppercase tracking-wider p-4 text-center w-1/4" style={{ backgroundColor: '#161616' }}>
-                SIGNATURE
-              </th>
-              <th className="bg-[#111] text-[#c9a84c] text-[12px] font-bold uppercase tracking-wider p-4 text-center w-1/4">
-                CROWN
+              <th className="bg-[#111] bg-opacity-100 text-[#c9a84c] text-[12px] font-bold uppercase tracking-wider p-4 text-center w-1/3" style={{ backgroundColor: '#161616' }}>
+                LEGACY
               </th>
             </tr>
           </thead>
           <tbody>
             {[
-              { label: 'Silver Photos', ess: true, sig: false, crn: false },
-              { label: 'Gold Photos', ess: false, sig: true, crn: true },
-              { label: 'Floor Plan', ess: true, sig: true, crn: true },
-              { label: 'Custom Listing Website', ess: true, sig: true, crn: true },
-              { label: 'Drone Photos', ess: false, sig: true, crn: true },
-              { label: '3D Tour', ess: false, sig: true, crn: true },
-              { label: 'Standard Video', ess: false, sig: true, crn: 'Included (Choice)' },
-              { label: 'Cinematic Video', ess: false, sig: false, crn: true },
-              { label: 'Agent Branding OR Community Spotlight Video', ess: false, sig: false, crn: 'Choice (+$200)' },
+              { label: 'Silver Photos', pre: false, leg: false },
+              { label: 'Gold Photos', pre: true, leg: true },
+              { label: 'Floor Plan', pre: true, leg: true },
+              { label: 'Custom Listing Website', pre: true, leg: true },
+              { label: 'Drone Photos', pre: true, leg: true },
+              { label: '3D Tour', pre: true, leg: true },
+              { label: 'Editor Cut Video', pre: true, leg: 'Included (Choice)' },
+              { label: 'Signature Video', pre: false, leg: true },
+              { label: 'Agent Branding OR Community Spotlight Video', pre: false, leg: 'Choice (+$200)' },
             ].map((row, idx) => (
               <tr key={idx} className={idx % 2 === 0 ? 'bg-[#0a0a0a]' : 'bg-[#0f0f0f]'}>
                 <td className="p-4 border-t border-[#1a1a1a] text-[#D4D4D4] text-[15px] font-medium">
                   {row.label}
                 </td>
                 <td className="p-4 border-t border-[#1a1a1a] text-center">
-                  {typeof row.ess === 'boolean' ? (row.ess ? renderCheck() : renderDash()) : renderText(row.ess)}
+                  {typeof row.pre === 'boolean' ? (row.pre ? renderCheck() : renderDash()) : renderText(row.pre)}
                 </td>
                 <td className="p-4 border-t border-[#1a1a1a] text-center bg-[#c9a84c] bg-opacity-5">
-                  {typeof row.sig === 'boolean' ? (row.sig ? renderCheck(true) : renderDash()) : renderText(row.sig)}
-                </td>
-                <td className="p-4 border-t border-[#1a1a1a] text-center">
-                  {typeof row.crn === 'boolean' ? (row.crn ? renderCheck() : renderDash()) : renderText(row.crn)}
+                  {typeof row.leg === 'boolean' ? (row.leg ? renderCheck(true) : renderDash()) : renderText(row.leg)}
                 </td>
               </tr>
             ))}

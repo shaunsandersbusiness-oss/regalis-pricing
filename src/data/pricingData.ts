@@ -17,10 +17,12 @@ export const PRICING_DATA = {
       droneStandalone: 150,
     },
     video: {
-      standard:           [300, 335, 375, 425, 500, "Contact Us"],
-      cinematic:          [600, 635, 675, 725, 800, "Contact Us"],
-      agentBranding:      600,
-      communitySpotlight: 550,
+      editorCut:          [450, 490, 535, 585, 650, "Contact Us"],
+      signature_video:    [750, 800, 875, 950, 1050, "Contact Us"],
+      agentBrandingEditor: 600,
+      agentBrandingSignature: 950,
+      communitySpotlightEditor: 550,
+      communitySpotlightSignature: 850,
       droneInVideo:       0,  // INCLUDED FREE in NJ
     },
     addOns: {
@@ -38,10 +40,12 @@ export const PRICING_DATA = {
       droneStandalone: 250,
     },
     video: {
-      standard:           [375, 410, 450, 500, 575, "Contact Us"],
-      cinematic:          [675, 710, 750, 800, 875, "Contact Us"],
-      agentBranding:      675,
-      communitySpotlight: 625,
+      editorCut:          [525, 565, 610, 660, 725, "Contact Us"],
+      signature_video:    [825, 875, 950, 1025, 1125, "Contact Us"],
+      agentBrandingEditor: 675,
+      agentBrandingSignature: 1025,
+      communitySpotlightEditor: 625,
+      communitySpotlightSignature: 925,
       droneInVideo:       100,  // $100 add-on in Manhattan
     },
     addOns: {
@@ -64,39 +68,29 @@ export const GOLD_RAW: Record<Market, (number | string)[]> = {
 // ── Pre-calculated DISCOUNTED package prices ──────────────────────────────────
 // NEVER recalculate these — use these arrays directly for display.
 
-// Essential = Silver × 0.90 (10% off)
-export const ESSENTIAL_PRICES: Record<Market, (number | string)[]> = {
-  NJ:  [240, 280, 340, 420,  520, "Contact Us"],
-  MAN: [305, 345, 405, 485,  590, "Contact Us"],
-};
-
 // Gold Bundle = Gold × 0.90 (10% off, photo only)
 export const GOLD_BUNDLE_PRICES: Record<Market, (number | string)[]> = {
   NJ:  [465, 505, 595,  710,  860, "Contact Us"],
   MAN: [555, 595, 685,  800,  950, "Contact Us"],
 };
 
-// Signature = (Gold + Standard) × 0.85 (15% off)
-export const SIGNATURE_PRICES: Record<Market, (number | string)[]> = {
-  NJ:  [695,  760,  880, 1035, 1235, "Contact Us"],
-  MAN: [840,  910, 1030, 1180, 1385, "Contact Us"],
+export const PRESTIGE_PRICES: Record<Market, (number | string)[]> = {
+  NJ:  [820,  895,  1015, 1170, 1365, "Contact Us"],
+  MAN: [970,  1040, 1165, 1320, 1515, "Contact Us"]
 };
 
-// Crown + Standard = (Gold + Cinematic + Standard) × 0.80 (20% off)
-export const CROWN_STANDARD_PRICES: Record<Market, (number | string)[]> = {
-  NJ:  [1130, 1225, 1370, 1550, 1805, "Contact Us"],
-  MAN: [1330, 1425, 1570, 1750, 2005, "Contact Us"],
+export const PRESTIGE_ALC: Record<Market, (number | string)[]> = {
+  NJ:  [965,  1050, 1195, 1375, 1605, "Contact Us"],
+  MAN: [1140, 1225, 1370, 1550, 1780, "Contact Us"]
 };
 
-// Crown + Agent Branding = (Gold + Cinematic + Branding) × 0.80 (20% off)
-export const CROWN_BRANDING_PRICES: Record<Market, (number | string)[]> = {
-  NJ:  [1370, 1435, 1550, 1690, 1885, "Contact Us"],
-  MAN: [1570, 1635, 1750, 1890, 2085, "Contact Us"],
+export const LEGACY_PRICES: Record<Market, (number | string)[]> = {
+  NJ:  [1010, 1090, 1230, 1390, 1605, "Contact Us"],
+  MAN: [1150, 1230, 1370, 1530, 1745, "Contact Us"]
 };
 
-// Crown + Community Spotlight = (Gold + Cinematic + Spotlight) × 0.80 (20% off)
-export const CROWN_SPOTLIGHT_PRICES: Record<Market, (number | string)[]> = {
-  NJ:  [1330, 1395, 1510, 1650, 1845, "Contact Us"],
-  MAN: [1530, 1595, 1710, 1850, 2045, "Contact Us"],
+export const LEGACY_ALC: Record<Market, (number | string)[]> = {
+  NJ:  [1265, 1360, 1535, 1740, 2005, "Contact Us"],
+  MAN: [1440, 1535, 1710, 1915, 2180, "Contact Us"]
 };
 

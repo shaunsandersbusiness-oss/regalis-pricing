@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 export default function Navbar() {
   useEffect(() => {
-    // ===== REGALIS UNIVERSAL NAVBAR JS =====
     const hamburger = document.getElementById('navHamburger');
-    const navLinks = document.getElementById('navLinks');
-    const overlay = document.getElementById('navOverlay');
+    const navLinks  = document.getElementById('navLinks');
+    const overlay   = document.getElementById('navOverlay');
 
     if (!hamburger || !navLinks || !overlay) return;
 
@@ -23,31 +22,30 @@ export default function Navbar() {
       document.body.style.overflow = '';
     }
 
-    function toggleMenu() {
+    const handleHamburgerClick = function() {
       if (navLinks!.classList.contains('open')) {
         closeMenu();
       } else {
         openMenu();
       }
-    }
+    };
 
-    hamburger.addEventListener('click', toggleMenu);
+    hamburger.addEventListener('click', handleHamburgerClick);
     overlay.addEventListener('click', closeMenu);
 
-    // Close menu when a link is clicked
     const links = navLinks.querySelectorAll('.nav-link');
     links.forEach(function(link) {
       link.addEventListener('click', closeMenu);
     });
 
-    // Set active page — CHANGE THE VALUE BELOW FOR EACH APP
+    // *** CHANGE THIS — set to the current page ***
     const activeLink = document.querySelector('.nav-link[data-page="pricing"]');
     if (activeLink) {
       activeLink.classList.add('active');
     }
 
     return () => {
-      hamburger!.removeEventListener('click', toggleMenu);
+      hamburger!.removeEventListener('click', handleHamburgerClick);
       overlay!.removeEventListener('click', closeMenu);
       links.forEach(function(link) {
         link.removeEventListener('click', closeMenu);
@@ -60,7 +58,11 @@ export default function Navbar() {
       <nav className="regalis-nav" id="regalisNav">
         <div className="nav-inner">
           <a href="https://www.regalisrealtymedia.com" className="nav-logo">
-            <img src="https://cdn.prod.website-files.com/6695980889d8d99cedb29bc7/66c7f601fff376e4c95274b3_Regalis%20Realty%20Main%20Logo%20(1).png" alt="Regalis Realty Media" className="nav-logo-img" />
+            <img
+              src="https://cdn.prod.website-files.com/6695980889d8d99cedb29bc7/66c7f601fff376e4c95274b3_Regalis%20Realty%20Main%20Logo%20(1).png"
+              alt="Regalis Realty Media"
+              className="nav-logo-img"
+            />
           </a>
           <div className="nav-links" id="navLinks">
             <a href="https://www.regalisrealtymedia.com" className="nav-link" data-page="home">Home</a>
@@ -84,4 +86,3 @@ export default function Navbar() {
     </>
   );
 }
-

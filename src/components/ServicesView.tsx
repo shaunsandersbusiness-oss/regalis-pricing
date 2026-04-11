@@ -109,34 +109,82 @@ export default function ServicesView({ market, tierIndex }: ServicesViewProps) {
         
         <div className="space-y-8">
           <ServiceCard 
-            title="Regalis Standard" 
+            title="Editor Cut" 
             tagline="Professional Listing Video (45-75 seconds)"
             description="A polished listing walkthrough with licensed music, smooth transitions, branded intro and outro, and professional editing. The reliable, versatile listing video — it showcases the property beautifully and works everywhere: MLS, YouTube, agent websites, email campaigns, and social media. Drone footage included free in NJ."
           >
-            <PriceTable market={market} njPrices={PRICING_DATA.NJ.video.standard} manPrices={PRICING_DATA.MAN.video.standard} highlightIndex={tierIndex} />
+            <PriceTable market={market} njPrices={PRICING_DATA.NJ.video.editorCut} manPrices={PRICING_DATA.MAN.video.editorCut} highlightIndex={tierIndex} />
           </ServiceCard>
 
           <ServiceCard 
-            title="Regalis Cinematic" 
+            title="Signature Video" 
             tagline="Premium Listing Film (60-90 seconds)"
             description='The flagship video product. Fully produced cinematic listing film featuring professional stabilized camera movement, cinematic color grading, bespoke text overlays with property details, branded intro and outro, and custom sound design with licensed music. Available in horizontal (MLS, YouTube, email) or vertical (Reels, TikTok, Stories) format. This is the video that elevates a listing from "on the market" to "must see." Drone footage included free in NJ.'
           >
-            <PriceTable market={market} njPrices={PRICING_DATA.NJ.video.cinematic} manPrices={PRICING_DATA.MAN.video.cinematic} highlightIndex={tierIndex} />
+            <PriceTable market={market} njPrices={PRICING_DATA.NJ.video.signature_video} manPrices={PRICING_DATA.MAN.video.signature_video} highlightIndex={tierIndex} />
           </ServiceCard>
 
-          <ServiceCard 
-            title="Agent Branding Video" 
-            tagline="Your Personal Brand Film"
-            description="A professionally produced video featuring YOU — your story, your market expertise, your personality, and your value proposition. Designed for your website homepage, social media profiles, ad campaigns, and listing presentations. This is the video that introduces you to potential clients and builds trust before you ever meet them. It positions you as a polished, credible professional in a market full of agents with nothing but a headshot and a tagline."
-            price={market === 'NJ' ? '$600' : '$675'}
-          />
+          <div className="bg-[#0a0a0a] border border-[#1a1a1a] rounded-xl p-6 md:p-8">
+            <h3 className="text-white text-[22px] font-bold mb-2">Agent Branding Video</h3>
+            <p className="text-[#999] text-[14px] italic mb-4">Two production levels available. Not offered at basic level.</p>
+            <p className="text-[#D4D4D4] text-[15px] leading-[1.7] mb-6">
+              A professionally produced video featuring YOU — your story, your market expertise, your personality, and your value proposition. Designed for your website, social profiles, ad campaigns, and listing presentations.
+            </p>
+            <div className="overflow-x-auto rounded-xl border border-[#1a1a1a]">
+              <table className="w-full border-collapse border-spacing-0">
+                <thead>
+                  <tr>
+                    <th className="bg-[#111] text-[#c9a84c] text-[12px] font-bold uppercase p-4 text-left">Level</th>
+                    <th className="bg-[#111] text-[#c9a84c] text-[12px] font-bold uppercase p-4 text-center">NJ & Boroughs</th>
+                    <th className="bg-[#111] text-[#c9a84c] text-[12px] font-bold uppercase p-4 text-center">Manhattan</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className="p-4 border-t border-[#1a1a1a] text-[#D4D4D4] text-[15px] font-bold">Editor Cut</td>
+                    <td className="p-4 border-t border-[#1a1a1a] text-[#D4D4D4] text-[15px] text-center">${PRICING_DATA.NJ.video.agentBrandingEditor}</td>
+                    <td className="p-4 border-t border-[#1a1a1a] text-[#D4D4D4] text-[15px] text-center">${PRICING_DATA.MAN.video.agentBrandingEditor}</td>
+                  </tr>
+                  <tr className="bg-[#0f0f0f]">
+                    <td className="p-4 border-t border-[#1a1a1a] text-[#c9a84c] text-[15px] font-bold">Signature Video</td>
+                    <td className="p-4 border-t border-[#1a1a1a] text-[#c9a84c] text-[15px] text-center">${PRICING_DATA.NJ.video.agentBrandingSignature}</td>
+                    <td className="p-4 border-t border-[#1a1a1a] text-[#c9a84c] text-[15px] text-center">${PRICING_DATA.MAN.video.agentBrandingSignature}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
 
-          <ServiceCard 
-            title="Community Spotlight" 
-            tagline="Neighborhood Highlight Film"
-            description="A cinematic tour of the neighborhood or community you serve. Coffee shops, parks, schools, restaurants, nightlife, commuter routes — whatever makes your market special. Perfect for social media content, listing presentations, and establishing yourself as THE local expert. Pair this with your listing Cinematic and you're not just selling a house — you're selling a lifestyle."
-            price={market === 'NJ' ? '$550' : '$625'}
-          />
+          <div className="bg-[#0a0a0a] border border-[#1a1a1a] rounded-xl p-6 md:p-8">
+            <h3 className="text-white text-[22px] font-bold mb-2">Community Spotlight</h3>
+            <p className="text-[#999] text-[14px] italic mb-4">Two production levels available. Not offered at basic level.</p>
+            <p className="text-[#D4D4D4] text-[15px] leading-[1.7] mb-6">
+              A cinematic tour of the neighborhood or community you serve. Coffee shops, parks, schools, restaurants, nightlife, commuter routes — whatever makes your market special.
+            </p>
+            <div className="overflow-x-auto rounded-xl border border-[#1a1a1a]">
+              <table className="w-full border-collapse border-spacing-0">
+                <thead>
+                  <tr>
+                    <th className="bg-[#111] text-[#c9a84c] text-[12px] font-bold uppercase p-4 text-left">Level</th>
+                    <th className="bg-[#111] text-[#c9a84c] text-[12px] font-bold uppercase p-4 text-center">NJ & Boroughs</th>
+                    <th className="bg-[#111] text-[#c9a84c] text-[12px] font-bold uppercase p-4 text-center">Manhattan</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className="p-4 border-t border-[#1a1a1a] text-[#D4D4D4] text-[15px] font-bold">Editor Cut</td>
+                    <td className="p-4 border-t border-[#1a1a1a] text-[#D4D4D4] text-[15px] text-center">${PRICING_DATA.NJ.video.communitySpotlightEditor}</td>
+                    <td className="p-4 border-t border-[#1a1a1a] text-[#D4D4D4] text-[15px] text-center">${PRICING_DATA.MAN.video.communitySpotlightEditor}</td>
+                  </tr>
+                  <tr className="bg-[#0f0f0f]">
+                    <td className="p-4 border-t border-[#1a1a1a] text-[#c9a84c] text-[15px] font-bold">Signature Video</td>
+                    <td className="p-4 border-t border-[#1a1a1a] text-[#c9a84c] text-[15px] text-center">${PRICING_DATA.NJ.video.communitySpotlightSignature}</td>
+                    <td className="p-4 border-t border-[#1a1a1a] text-[#c9a84c] text-[15px] text-center">${PRICING_DATA.MAN.video.communitySpotlightSignature}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
 
           <div className="bg-[#0a0a0a] border border-[#1a1a1a] rounded-xl p-6 md:p-8">
             <h3 className="text-white text-[22px] font-bold mb-4">Drone in Video</h3>
@@ -157,7 +205,7 @@ export default function ServicesView({ market, tierIndex }: ServicesViewProps) {
               </table>
             </div>
             <p className="text-[#999999] text-[14px] italic mt-4">
-              In NJ, drone footage is included at no extra charge in every video (Standard, Cinematic, Agent Branding, Community Spotlight). In Manhattan, drone in video is a $100 add-on.
+              In NJ, drone footage is included at no extra charge in every video (Editor Cut, Signature Video, Agent Branding, Community Spotlight). In Manhattan, drone in video is a $100 add-on.
             </p>
           </div>
         </div>
@@ -199,24 +247,30 @@ export default function ServicesView({ market, tierIndex }: ServicesViewProps) {
         </p>
         
         <div className="overflow-x-auto rounded-xl border border-[#1a1a1a] mb-8">
-          <table className="w-full border-collapse border-spacing-0 min-w-[600px]">
+          <table className="w-full border-collapse border-spacing-0">
             <thead>
               <tr>
-                <th className="bg-[#111] text-[#c9a84c] text-[12px] font-bold uppercase p-4 text-left">Combination</th>
-                <th className="bg-[#111] text-[#c9a84c] text-[12px] font-bold uppercase p-4 text-left">Discount</th>
+                <th className="bg-[#111] text-[#c9a84c] text-[12px] font-bold uppercase p-4 text-left">Bundle Combination</th>
+                <th className="bg-[#111] text-[#c9a84c] text-[12px] font-bold uppercase p-4 text-center">Discount</th>
+                <th className="bg-[#111] text-[#c9a84c] text-[12px] font-bold uppercase p-4 text-left">Example</th>
               </tr>
             </thead>
             <tbody>
-              {[
-                { combo: 'Any photo package + any photo add-on (no video)', disc: '10% off entire order' },
-                { combo: 'Any photo package + any video', disc: '15% off entire order' },
-                { combo: 'Gold photos + Cinematic + second video (Crown)', disc: '20% off entire order' },
-              ].map((row, i) => (
-                <tr key={i} className={i % 2 === 0 ? 'bg-[#0a0a0a]' : 'bg-[#0f0f0f]'}>
-                  <td className="p-4 border-t border-[#1a1a1a] text-[#D4D4D4] text-[15px]">{row.combo}</td>
-                  <td className="p-4 border-t border-[#1a1a1a] text-white font-bold text-[15px]">{row.disc}</td>
-                </tr>
-              ))}
+              <tr>
+                <td className="p-4 border-t border-[#1a1a1a] text-[#D4D4D4] text-[15px]">Any 2 Photo Services</td>
+                <td className="p-4 border-t border-[#1a1a1a] text-[#c9a84c] text-[15px] font-bold text-center">10% OFF</td>
+                <td className="p-4 border-t border-[#1a1a1a] text-[#999] text-[14px]">Bronze Photos + Floor Plan</td>
+              </tr>
+              <tr className="bg-[#0f0f0f]">
+                <td className="p-4 border-t border-[#1a1a1a] text-[#D4D4D4] text-[15px]">Any Photo Service + Any Video Service</td>
+                <td className="p-4 border-t border-[#1a1a1a] text-[#c9a84c] text-[15px] font-bold text-center">15% OFF</td>
+                <td className="p-4 border-t border-[#1a1a1a] text-[#999] text-[14px]">Bronze Photos + Editor Cut Video</td>
+              </tr>
+              <tr>
+                <td className="p-4 border-t border-[#1a1a1a] text-[#D4D4D4] text-[15px]">Any Photo Service + 2 Video Services</td>
+                <td className="p-4 border-t border-[#1a1a1a] text-[#c9a84c] text-[15px] font-bold text-center">20% OFF</td>
+                <td className="p-4 border-t border-[#1a1a1a] text-[#999] text-[14px]">Bronze Photos + Signature Video + Agent Branding</td>
+              </tr>
             </tbody>
           </table>
         </div>

@@ -4,11 +4,10 @@ import {
   TierIndex, 
   TIERS, 
   PRICING_DATA, 
-  ESSENTIAL_PRICES,
-  SIGNATURE_PRICES,
-  CROWN_STANDARD_PRICES,
-  CROWN_BRANDING_PRICES,
-  CROWN_SPOTLIGHT_PRICES
+  PRESTIGE_PRICES,
+  PRESTIGE_ALC,
+  LEGACY_PRICES,
+  LEGACY_ALC
 } from '../data/pricingData';
 import ComparisonTable from './ComparisonTable';
 import { Check, ArrowRight, Star } from 'lucide-react';
@@ -20,54 +19,40 @@ interface PackagesViewProps {
 }
 
 export default function PackagesView({ market, tierIndex, setTierIndex }: PackagesViewProps) {
-  const [crownVideoChoice, setCrownVideoChoice] = useState<'standard' | 'agentBranding' | 'communitySpotlight'>('agentBranding');
+  const [legacyVideoChoice, setLegacyVideoChoice] = useState<'editorCut' | 'agentBranding' | 'communitySpotlight'>('agentBranding');
   
   const currentData = PRICING_DATA[market];
 
-  const getCrownPrice = () => {
-    if (crownVideoChoice === 'standard') return CROWN_STANDARD_PRICES[market][tierIndex];
-    if (crownVideoChoice === 'agentBranding') return CROWN_BRANDING_PRICES[market][tierIndex];
-    return CROWN_SPOTLIGHT_PRICES[market][tierIndex];
+  const getLegacyPrice = () => {
+    const basePrice = LEGACY_PRICES[market][tierIndex];
+    if (typeof basePrice === 'string') return basePrice;
+    if (legacyVideoChoice === 'editorCut') return basePrice;
+    return (basePrice as number) + 200;
   };
 
-  const getSavings = (raw: number, discounted: number | string) => {
-    if (typeof discounted === 'string') return 0;
-    return raw - discounted;
+  const getLegacyALC = () => {
+    const baseALC = LEGACY_ALC[market][tierIndex];
+    if (typeof baseALC === 'string') return baseALC;
+    if (legacyVideoChoice === 'editorCut') return baseALC;
+    return (baseALC as number) + 200;
+  };
+
+  const getSavings = (alc: number | string, discounted: number | string) => {
+    if (typeof discounted === 'string' || typeof alc === 'string') return 0;
+    return alc - discounted;
   };
   
-  // Calculate savings for packages dynamically based on components
   const isContactUs = tierIndex === 5;
 
-  // Essential: Bronze + Floor Plan
-  const essentialRaw = isContactUs ? 0 : (currentData.photography.bronze[tierIndex] as number) + (currentData.photography.floorPlan[tierIndex] as number);
-  const essentialPrice = ESSENTIAL_PRICES[market][tierIndex];
-  const essentialSavings = isContactUs ? 0 : getSavings(essentialRaw, essentialPrice);
+  // Prestige
+  const prestigePrice = PRESTIGE_PRICES[market][tierIndex];
+  const prestigeALC = PRESTIGE_ALC[market][tierIndex];
+  const prestigeSavings = isContactUs ? 0 : getSavings(prestigeALC, prestigePrice);
 
-  // Signature: Gold Photos + Standard Video
-  const signatureRaw = isContactUs ? 0 : (currentData.photography.bronze[tierIndex] as number) + 
-                       (currentData.photography.floorPlan[tierIndex] as number) + 
-                       (currentData.photography.threeDTour[tierIndex] as number) + 
-                       (currentData.photography.droneAddOn as number) + 
-                       (currentData.video.standard[tierIndex] as number);
-  const signaturePrice = SIGNATURE_PRICES[market][tierIndex];
-  const signatureSavings = isContactUs ? 0 : getSavings(signatureRaw, signaturePrice);
-
-  // Crown: Gold Photos + Cinematic + Choice Video
-  let crownChoicePrice = 0;
-  if (!isContactUs) {
-    if (crownVideoChoice === 'standard') crownChoicePrice = currentData.video.standard[tierIndex] as number;
-    else if (crownVideoChoice === 'agentBranding') crownChoicePrice = currentData.video.agentBranding as number;
-    else crownChoicePrice = currentData.video.communitySpotlight as number;
-  }
-
-  const crownRaw = isContactUs ? 0 : (currentData.photography.bronze[tierIndex] as number) + 
-                   (currentData.photography.floorPlan[tierIndex] as number) + 
-                   (currentData.photography.threeDTour[tierIndex] as number) + 
-                   (currentData.photography.droneAddOn as number) + 
-                   (currentData.video.cinematic[tierIndex] as number) + 
-                   crownChoicePrice;
-  const crownPrice = getCrownPrice();
-  const crownSavings = isContactUs ? 0 : getSavings(crownRaw, crownPrice);
+  // Legacy
+  const legacyPrice = getLegacyPrice();
+  const legacyALCValue = getLegacyALC();
+  const legacySavings = isContactUs ? 0 : getSavings(legacyALCValue, legacyPrice);
 
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
@@ -78,40 +63,20 @@ export default function PackagesView({ market, tierIndex, setTierIndex }: Packag
         <div className="flex flex-wrap justify-center gap-3">
           <span className="px-4 py-1 rounded-full border border-[#333] bg-[#111] text-[#D4D4D4] text-[14px]">Photos only = 10% off</span>
           <span className="px-4 py-1 rounded-full border border-[#333] bg-[#111] text-[#D4D4D4] text-[14px]">Photo + Video = 15% off</span>
-          <span className="px-4 py-1 rounded-full bg-[#c9a84c] text-black font-bold text-[14px]">Crown = 20% off</span>
+          <span className="px-4 py-1 rounded-full bg-[#c9a84c] text-black font-bold text-[14px]">Legacy = 20% off</span>
         </div>
       </div>
 
-      {/* THREE PACKAGE CARDS */}
-      <div className="grid lg:grid-cols-3 gap-6 items-start mb-20">
+      {/* TWO PACKAGE CARDS */}
+      <div className="grid lg:grid-cols-2 gap-6 items-start mb-20 max-w-5xl mx-auto">
         
-        {/* ESSENTIAL */}
+        {/* PRESTIGE */}
         <PackageCard 
-          title="Essential"
-          badge="10% OFF"
-          subtitle="The smart starter — photos and floor plan at 10% off"
-          price={essentialPrice}
-          savings={essentialSavings}
-          popular
-        >
-          <FeatureItem title="Silver Photos — Interior & Exterior HDR Photography">
-            Professional HDR photos of every room plus exterior angles. Includes window pull, sky replacement, and color correction. <span className="italic text-[#999]">Silver means: Bronze photo service + Floor Plan bundled together.</span>
-          </FeatureItem>
-          <FeatureItem title="Floor Plan — 2D Marketing Layout">
-            Clean, branded 2D floor plan with room labels, dimensions, and total square footage. Formatted for MLS and print.
-          </FeatureItem>
-          <FeatureItem title="Custom Listing Website" free>
-            Branded single-property website with gallery, video, property details, and agent contact info.
-          </FeatureItem>
-        </PackageCard>
-
-        {/* SIGNATURE */}
-        <PackageCard 
-          title="Signature"
+          title="Prestige"
           badge="15% OFF"
           subtitle="The complete package — every visual asset a listing needs"
-          price={signaturePrice}
-          savings={signatureSavings}
+          price={prestigePrice}
+          savings={prestigeSavings}
           bestValue
         >
           <FeatureItem title="Gold Photos — The Full Visual Toolkit">
@@ -123,26 +88,26 @@ export default function PackagesView({ market, tierIndex, setTierIndex }: Packag
           <FeatureItem title="Drone Aerial Photography">
             Professional aerial shots showing the property, lot, neighborhood, and surrounding context from above.
           </FeatureItem>
-          <FeatureItem title="Regalis Standard — Professional Listing Video">
+          <FeatureItem title="Editor Cut — Professional Listing Video">
             Polished listing walkthrough (45-75s) with licensed music, smooth transitions, branded intro and outro, and professional editing. {market === 'NJ' ? 'Drone footage included in NJ.' : 'Drone in video is a $100 add-on in Manhattan.'}
           </FeatureItem>
           <FeatureItem title="Custom Listing Website" free />
         </PackageCard>
 
-        {/* CROWN */}
+        {/* LEGACY */}
         <PackageCard 
-          title="Crown"
+          title="Legacy"
           badge="20% OFF"
           subtitle="Maximum impact — every photo, two professional videos, and full digital presence"
-          price={crownPrice}
-          savings={crownSavings}
+          price={legacyPrice}
+          savings={legacySavings}
           maximumImpact
-          isCrown
+          isLegacy
         >
           <FeatureItem title="Gold Photos — The Full Visual Toolkit">
             Bronze HDR photos + floor plan + drone + 3D tour — the complete photography package.
           </FeatureItem>
-          <FeatureItem title="Regalis Cinematic — Premium Listing Film">
+          <FeatureItem title="Signature Video — Premium Listing Film">
             Fully produced cinematic video (60-90s) with stabilized movement, cinematic color grading, bespoke text overlays, branded intro/outro, and custom sound design. Available horizontal or vertical.
           </FeatureItem>
           
@@ -152,39 +117,39 @@ export default function PackagesView({ market, tierIndex, setTierIndex }: Packag
               <label className="flex items-start gap-3 cursor-pointer group">
                 <input 
                   type="radio" 
-                  name="crownVideo" 
-                  checked={crownVideoChoice === 'standard'}
-                  onChange={() => setCrownVideoChoice('standard')}
+                  name="legacyVideo" 
+                  checked={legacyVideoChoice === 'editorCut'}
+                  onChange={() => setLegacyVideoChoice('editorCut')}
                   className="mt-1 accent-[#c9a84c]"
                 />
-                <div className={`p-2 rounded border transition-all ${crownVideoChoice === 'standard' ? 'border-[#c9a84c] bg-[#c9a84c]/5' : 'border-transparent'}`}>
-                  <span className="text-white font-medium text-[14px] group-hover:text-[#c9a84c] transition-colors">Option A — Regalis Standard (Included)</span>
-                  <p className="text-[#999] text-[12px] leading-tight mt-1">Polished, professional listing walkthrough (45-75s) with music, transitions, and branded intro/outro. Great for MLS, YouTube, and email campaigns. With Crown you get BOTH the Cinematic for hero marketing and the Standard for broad distribution.</p>
+                <div className={`p-2 rounded border transition-all ${legacyVideoChoice === 'editorCut' ? 'border-[#c9a84c] bg-[#c9a84c]/5' : 'border-transparent'}`}>
+                  <span className="text-white font-medium text-[14px] group-hover:text-[#c9a84c] transition-colors">Option A — Editor Cut (Included)</span>
+                  <p className="text-[#999] text-[12px] leading-tight mt-1">Polished, professional listing walkthrough (45-75s) with music, transitions, and branded intro/outro. Great for MLS, YouTube, and email campaigns. With Legacy you get BOTH the Signature for hero marketing and the Editor Cut for broad distribution.</p>
                 </div>
               </label>
               <label className="flex items-start gap-3 cursor-pointer group">
                 <input 
                   type="radio" 
-                  name="crownVideo" 
-                  checked={crownVideoChoice === 'agentBranding'}
-                  onChange={() => setCrownVideoChoice('agentBranding')}
+                  name="legacyVideo" 
+                  checked={legacyVideoChoice === 'agentBranding'}
+                  onChange={() => setLegacyVideoChoice('agentBranding')}
                   className="mt-1 accent-[#c9a84c]"
                 />
-                <div className={`p-2 rounded border transition-all ${crownVideoChoice === 'agentBranding' ? 'border-[#c9a84c] bg-[#c9a84c]/5' : 'border-transparent'}`}>
-                  <span className="text-white font-medium text-[14px] group-hover:text-[#c9a84c] transition-colors">Option B — Agent Branding Video (+$200)</span>
+                <div className={`p-2 rounded border transition-all ${legacyVideoChoice === 'agentBranding' ? 'border-[#c9a84c] bg-[#c9a84c]/5' : 'border-transparent'}`}>
+                  <span className="text-white font-medium text-[14px] group-hover:text-[#c9a84c] transition-colors">Option B — Agent Branding Video (Editor Cut Level) (+$200)</span>
                   <p className="text-[#999] text-[12px] leading-tight mt-1">Professionally produced video featuring YOU — your story, expertise, and value proposition. For your website, social profiles, ad campaigns, and listing presentations.</p>
                 </div>
               </label>
               <label className="flex items-start gap-3 cursor-pointer group">
                 <input 
                   type="radio" 
-                  name="crownVideo" 
-                  checked={crownVideoChoice === 'communitySpotlight'}
-                  onChange={() => setCrownVideoChoice('communitySpotlight')}
+                  name="legacyVideo" 
+                  checked={legacyVideoChoice === 'communitySpotlight'}
+                  onChange={() => setLegacyVideoChoice('communitySpotlight')}
                   className="mt-1 accent-[#c9a84c]"
                 />
-                <div className={`p-2 rounded border transition-all ${crownVideoChoice === 'communitySpotlight' ? 'border-[#c9a84c] bg-[#c9a84c]/5' : 'border-transparent'}`}>
-                  <span className="text-white font-medium text-[14px] group-hover:text-[#c9a84c] transition-colors">Option C — Community Spotlight (+$200)</span>
+                <div className={`p-2 rounded border transition-all ${legacyVideoChoice === 'communitySpotlight' ? 'border-[#c9a84c] bg-[#c9a84c]/5' : 'border-transparent'}`}>
+                  <span className="text-white font-medium text-[14px] group-hover:text-[#c9a84c] transition-colors">Option C — Community Spotlight (Editor Cut Level) (+$200)</span>
                   <p className="text-[#999] text-[12px] leading-tight mt-1">Cinematic neighborhood tour showcasing the lifestyle and amenities of your market. Coffee shops, parks, schools, restaurants. Positions you as the local expert.</p>
                 </div>
               </label>
@@ -216,16 +181,12 @@ export default function PackagesView({ market, tierIndex, setTierIndex }: Packag
             </thead>
             <tbody>
               <tr>
-                <td className="p-4 border-t border-[#1a1a1a] text-[#D4D4D4] text-[15px]">Essential (10% off)</td>
-                <td className="p-4 border-t border-[#1a1a1a] text-white font-bold text-[15px] text-center">{typeof essentialPrice === 'number' ? `$${essentialPrice}` : essentialPrice}</td>
+                <td className="p-4 border-t border-[#1a1a1a] text-[#D4D4D4] text-[15px]">Prestige (15% off)</td>
+                <td className="p-4 border-t border-[#1a1a1a] text-white font-bold text-[15px] text-center">{typeof prestigePrice === 'number' ? `$${prestigePrice}` : prestigePrice}</td>
               </tr>
               <tr className="bg-[#0f0f0f]">
-                <td className="p-4 border-t border-[#1a1a1a] text-[#D4D4D4] text-[15px]">Signature (15% off)</td>
-                <td className="p-4 border-t border-[#1a1a1a] text-white font-bold text-[15px] text-center">{typeof signaturePrice === 'number' ? `$${signaturePrice}` : signaturePrice}</td>
-              </tr>
-              <tr>
-                <td className="p-4 border-t border-[#1a1a1a] text-[#D4D4D4] text-[15px]">Crown (20% off)</td>
-                <td className="p-4 border-t border-[#1a1a1a] text-white font-bold text-[15px] text-center">{typeof crownPrice === 'number' ? `$${crownPrice}` : crownPrice}</td>
+                <td className="p-4 border-t border-[#1a1a1a] text-[#D4D4D4] text-[15px]">Legacy (20% off)</td>
+                <td className="p-4 border-t border-[#1a1a1a] text-white font-bold text-[15px] text-center">{typeof legacyPrice === 'number' ? `$${legacyPrice}` : legacyPrice}</td>
               </tr>
             </tbody>
           </table>
@@ -240,24 +201,30 @@ export default function PackagesView({ market, tierIndex, setTierIndex }: Packag
         </p>
         
         <div className="overflow-x-auto rounded-xl border border-[#1a1a1a] mb-8">
-          <table className="w-full border-collapse border-spacing-0 min-w-[600px]">
+          <table className="w-full border-collapse border-spacing-0">
             <thead>
               <tr>
-                <th className="bg-[#111] text-[#c9a84c] text-[12px] font-bold uppercase p-4 text-left">Combination</th>
-                <th className="bg-[#111] text-[#c9a84c] text-[12px] font-bold uppercase p-4 text-left">Discount</th>
+                <th className="bg-[#111] text-[#c9a84c] text-[12px] font-bold uppercase p-4 text-left">Bundle Combination</th>
+                <th className="bg-[#111] text-[#c9a84c] text-[12px] font-bold uppercase p-4 text-center">Discount</th>
+                <th className="bg-[#111] text-[#c9a84c] text-[12px] font-bold uppercase p-4 text-left">Example</th>
               </tr>
             </thead>
             <tbody>
-              {[
-                { combo: 'Any photo package + any photo add-on (no video)', disc: '10% off entire order' },
-                { combo: 'Any photo package + any video', disc: '15% off entire order' },
-                { combo: 'Gold photos + Cinematic + second video (Crown)', disc: '20% off entire order' },
-              ].map((row, i) => (
-                <tr key={i} className={i % 2 === 0 ? 'bg-[#0a0a0a]' : 'bg-[#0f0f0f]'}>
-                  <td className="p-4 border-t border-[#1a1a1a] text-[#D4D4D4] text-[15px]">{row.combo}</td>
-                  <td className="p-4 border-t border-[#1a1a1a] text-white font-bold text-[15px]">{row.disc}</td>
-                </tr>
-              ))}
+              <tr>
+                <td className="p-4 border-t border-[#1a1a1a] text-[#D4D4D4] text-[15px]">Any 2 Photo Services</td>
+                <td className="p-4 border-t border-[#1a1a1a] text-[#c9a84c] text-[15px] font-bold text-center">10% OFF</td>
+                <td className="p-4 border-t border-[#1a1a1a] text-[#999] text-[14px]">Bronze Photos + Floor Plan</td>
+              </tr>
+              <tr className="bg-[#0f0f0f]">
+                <td className="p-4 border-t border-[#1a1a1a] text-[#D4D4D4] text-[15px]">Any Photo Service + Any Video Service</td>
+                <td className="p-4 border-t border-[#1a1a1a] text-[#c9a84c] text-[15px] font-bold text-center">15% OFF</td>
+                <td className="p-4 border-t border-[#1a1a1a] text-[#999] text-[14px]">Bronze Photos + Editor Cut Video</td>
+              </tr>
+              <tr>
+                <td className="p-4 border-t border-[#1a1a1a] text-[#D4D4D4] text-[15px]">Any Photo Service + 2 Video Services</td>
+                <td className="p-4 border-t border-[#1a1a1a] text-[#c9a84c] text-[15px] font-bold text-center">20% OFF</td>
+                <td className="p-4 border-t border-[#1a1a1a] text-[#999] text-[14px]">Bronze Photos + Signature Video + Agent Branding</td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -311,7 +278,7 @@ function PackageCard({
   popular = false,
   bestValue = false,
   maximumImpact = false,
-  isCrown = false
+  isLegacy = false
 }: { 
   title: string, 
   badge: string, 
@@ -322,7 +289,7 @@ function PackageCard({
   popular?: boolean,
   bestValue?: boolean,
   maximumImpact?: boolean,
-  isCrown?: boolean
+  isLegacy?: boolean
 }) {
   return (
     <div className={`relative flex flex-col h-full bg-[#0a0a0a] border rounded-xl p-8 transition-all duration-300 ${
@@ -347,7 +314,7 @@ function PackageCard({
       <div className="flex justify-between items-start mb-2">
         <h3 className="text-[28px] text-white font-bold">{title}</h3>
         <span className={`text-[12px] font-bold px-2 py-1 rounded border ${
-          isCrown ? 'bg-[#c9a84c] text-black border-[#c9a84c]' : 'bg-transparent text-[#c9a84c] border-[#c9a84c]'
+          isLegacy ? 'bg-[#c9a84c] text-black border-[#c9a84c]' : 'bg-transparent text-[#c9a84c] border-[#c9a84c]'
         }`}>
           {badge}
         </span>
