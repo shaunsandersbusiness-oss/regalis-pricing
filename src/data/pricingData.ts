@@ -17,12 +17,10 @@ export const PRICING_DATA = {
       droneStandalone: 150,
     },
     video: {
-      editorCut:          [450, 490, 535, 585, 650, "Contact Us"],
-      signature_video:    [750, 800, 875, 950, 1050, "Contact Us"],
-      agentBrandingEditor: 600,
-      agentBrandingSignature: 950,
-      communitySpotlightEditor: 550,
-      communitySpotlightSignature: 850,
+      editorCut:          450,
+      signature_video:    750,
+      agentBranding: 600,
+      communitySpotlight: 600,
       droneInVideo:       0,  // INCLUDED FREE in NJ
     },
     addOns: {
@@ -40,12 +38,10 @@ export const PRICING_DATA = {
       droneStandalone: 250,
     },
     video: {
-      editorCut:          [525, 565, 610, 660, 725, "Contact Us"],
-      signature_video:    [825, 875, 950, 1025, 1125, "Contact Us"],
-      agentBrandingEditor: 675,
-      agentBrandingSignature: 1025,
-      communitySpotlightEditor: 625,
-      communitySpotlightSignature: 925,
+      editorCut:          525,
+      signature_video:    825,
+      agentBranding: 675,
+      communitySpotlight: 675,
       droneInVideo:       100,  // $100 add-on in Manhattan
     },
     addOns: {
@@ -75,22 +71,22 @@ export const GOLD_BUNDLE_PRICES: Record<Market, (number | string)[]> = {
 };
 
 export const PRESTIGE_PRICES: Record<Market, (number | string)[]> = {
-  NJ:  [820,  895,  1015, 1170, 1365, "Contact Us"],
-  MAN: [970,  1040, 1165, 1320, 1515, "Contact Us"]
+  NJ:  [820,  860,  945,  1055, 1195, "Contact Us"],
+  MAN: [970,  1005, 1090, 1205, 1345, "Contact Us"]
 };
 
 export const PRESTIGE_ALC: Record<Market, (number | string)[]> = {
-  NJ:  [965,  1050, 1195, 1375, 1605, "Contact Us"],
-  MAN: [1140, 1225, 1370, 1550, 1780, "Contact Us"]
+  NJ:  [965,  1010, 1110, 1240, 1405, "Contact Us"],
+  MAN: [1140, 1185, 1285, 1415, 1580, "Contact Us"]
 };
 
 export const LEGACY_PRICES: Record<Market, (number | string)[]> = {
-  NJ:  [1010, 1090, 1230, 1390, 1605, "Contact Us"],
-  MAN: [1150, 1230, 1370, 1530, 1745, "Contact Us"]
+  NJ:  [1010, 1050, 1130, 1230, 1365, "Contact Us"],
+  MAN: [1150, 1190, 1270, 1370, 1505, "Contact Us"]
 };
 
 export const LEGACY_ALC: Record<Market, (number | string)[]> = {
-  NJ:  [1265, 1360, 1535, 1740, 2005, "Contact Us"],
-  MAN: [1440, 1535, 1710, 1915, 2180, "Contact Us"]
+  NJ:  [1265, 1310, 1410, 1540, 1705, "Contact Us"],
+  MAN: [1440, 1485, 1585, 1715, 1880, "Contact Us"]
 };
 

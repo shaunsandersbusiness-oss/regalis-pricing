@@ -136,7 +136,7 @@ export default function PackagesView({ market, tierIndex, setTierIndex }: Packag
                   className="mt-1 accent-[#c9a84c]"
                 />
                 <div className={`p-2 rounded border transition-all ${legacyVideoChoice === 'agentBranding' ? 'border-[#c9a84c] bg-[#c9a84c]/5' : 'border-transparent'}`}>
-                  <span className="text-white font-medium text-[14px] group-hover:text-[#c9a84c] transition-colors">Option B — Agent Branding Video (Editor Cut Level) (+$200)</span>
+                  <span className="text-white font-medium text-[14px] group-hover:text-[#c9a84c] transition-colors">Option B — Agent Branding Video (+$200)</span>
                   <p className="text-[#999] text-[12px] leading-tight mt-1">Professionally produced video featuring YOU — your story, expertise, and value proposition. For your website, social profiles, ad campaigns, and listing presentations.</p>
                 </div>
               </label>
@@ -149,7 +149,7 @@ export default function PackagesView({ market, tierIndex, setTierIndex }: Packag
                   className="mt-1 accent-[#c9a84c]"
                 />
                 <div className={`p-2 rounded border transition-all ${legacyVideoChoice === 'communitySpotlight' ? 'border-[#c9a84c] bg-[#c9a84c]/5' : 'border-transparent'}`}>
-                  <span className="text-white font-medium text-[14px] group-hover:text-[#c9a84c] transition-colors">Option C — Community Spotlight (Editor Cut Level) (+$200)</span>
+                  <span className="text-white font-medium text-[14px] group-hover:text-[#c9a84c] transition-colors">Option C — Community Spotlight (+$200)</span>
                   <p className="text-[#999] text-[12px] leading-tight mt-1">Cinematic neighborhood tour showcasing the lifestyle and amenities of your market. Coffee shops, parks, schools, restaurants. Positions you as the local expert.</p>
                 </div>
               </label>
