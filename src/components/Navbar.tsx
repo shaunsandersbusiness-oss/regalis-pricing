@@ -68,7 +68,6 @@ export default function Navbar() {
             <a href="https://www.regalisrealtymedia.com" className="nav-link" data-page="home">Home</a>
             <a href="https://regalisrealtymedia25.pixieset.com/regalisrealtymediaportfolio/compassphotos/" className="nav-link" data-page="portfolio" target="_blank" rel="noreferrer">Portfolio</a>
             <a href="https://pricing.regalisrealtymedia.com" className="nav-link" data-page="pricing">Pricing</a>
-            <a href="https://calculator.regalisrealtymedia.com" className="nav-link" data-page="calculator">Calculator</a>
             <a href="https://catalog.regalisrealtymedia.com" className="nav-link" data-page="catalog">Catalog</a>
             <a href="https://branding.regalisrealtymedia.com" className="nav-link" data-page="branding">Branding</a>
             <a href="https://portal.regalisrealtymedia.com" className="nav-link" data-page="portal">Portal</a>
