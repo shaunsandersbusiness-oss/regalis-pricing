@@ -14,9 +14,11 @@ export default function App() {
       <main className="flex-grow pt-28 px-4 md:px-8 lg:px-12 max-w-7xl mx-auto w-full pb-[70px] md:pb-0">
         
         {/* HERO */}
-        <div className="text-center mb-12">
-          <h1 className="text-white text-[32px] md:text-[48px] font-bold mb-4">Our Services & Pricing</h1>
-          <p className="text-[#D4D4D4] text-[16px] md:text-[18px]">Professional real estate media for every listing</p>
+        <div className="text-center mb-12 max-w-4xl mx-auto">
+          <h1 className="text-white text-[32px] md:text-[48px] font-bold mb-6 tracking-tight">Pricing</h1>
+          <p className="text-[#D4D4D4] text-[16px] md:text-[18px] leading-relaxed">
+            Every listing is <strong className="text-white font-semibold">priced by home size</strong> — complete, MLS-ready interior & exterior coverage with <strong className="text-white font-semibold">no photo caps and no per-photo fees</strong>. Find your home's square footage, see your price. Homes over 5,500 sq ft are quoted individually.
+          </p>
         </div>
 
         {/* Market Selector ONLY */}

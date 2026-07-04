@@ -39,15 +39,16 @@ export default function PriceSheet({ market }: Props) {
                 ))}
               </ul>
               
-              <div className="bg-[#111] p-3 rounded-lg border border-[#222] text-[12px] text-[#999] mb-3">
-                {pkg.size}
-              </div>
-              <div className="bg-[#111] p-3 rounded-lg border border-[#222] text-[12px] text-[#999] mb-6">
-                {pkg.morePhotos}
-              </div>
-
-              <div className="text-[#c9a84c] text-[32px] font-light mt-auto pt-4 border-t border-[#333]">
-                ${pkg.price}
+              <div className="mt-auto pt-4 border-t border-[#1a1a1a]">
+                {sharedPricing.sizeHeaders.map((size, idx) => (
+                  <div key={idx} className="flex justify-between items-center py-2 border-b border-[#1a1a1a]/50 last:border-0">
+                    <span className="text-[#999] text-[13px]">{size}</span>
+                    <div className="flex-1 mx-4 border-b border-dotted border-[#333]"></div>
+                    <span className={`text-[#c9a84c] text-[15px] font-bold tabular-nums ${pkg.prices[idx] === 'custom' ? 'italic text-[#999] font-normal text-[13px]' : ''}`}>
+                      {pkg.prices[idx] === 'custom' ? 'custom' : `$${pkg.prices[idx]}`}
+                    </span>
+                  </div>
+                ))}
               </div>
             </div>
           ))}
@@ -59,17 +60,16 @@ export default function PriceSheet({ market }: Props) {
         <section>
           <div className="mb-6 border-b border-[#333] pb-3">
             <h2 className="text-[#c9a84c] text-[20px] font-bold">Photography</h2>
+            <p className="text-[#D4D4D4] text-[15px] mt-2">{data.photographyIntro}</p>
           </div>
-          <div className="space-y-4">
+          <div className="bg-[#0a0a0a] border border-[#1a1a1a] rounded-xl p-6">
             {data.photography.map((item, i) => (
-              <div key={i} className="bg-[#0a0a0a] border border-[#1a1a1a] rounded-xl p-5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                <div>
-                  <h4 className="text-white font-bold text-[16px] mb-1">{item.name}</h4>
-                  <p className="text-[#999] text-[13px]">{item.desc}</p>
-                </div>
-                <div className="text-[#c9a84c] text-[20px] whitespace-nowrap">
-                  ${item.price}{item.unit ? ` ${item.unit}` : ''}
-                </div>
+              <div key={i} className="flex justify-between items-center py-2.5 border-b border-[#1a1a1a] last:border-0">
+                <span className="text-[#d4d4d4] text-[14px]">{item.size}</span>
+                <div className="flex-1 mx-4 border-b border-dotted border-[#333]"></div>
+                <span className={`text-[#c9a84c] text-[16px] font-bold tabular-nums ${item.price === 'custom' ? 'italic text-[#999] font-normal text-[14px]' : ''}`}>
+                   {item.price === 'custom' ? 'custom' : `$${item.price}`}
+                </span>
               </div>
             ))}
           </div>
@@ -88,7 +88,7 @@ export default function PriceSheet({ market }: Props) {
                   <p className="text-[#999] text-[13px]">{item.desc}</p>
                 </div>
                 <div className="text-[#c9a84c] text-[20px] whitespace-nowrap">
-                  {item.note ? <span className="text-[#999] text-[14px] uppercase tracking-wider">{item.note}</span> : `${item.from ? 'from ' : ''}$${item.price}`}
+                  {item.priceText}
                 </div>
               </div>
             ))}
@@ -110,7 +110,7 @@ export default function PriceSheet({ market }: Props) {
             <div key={i} className="bg-[#0a0a0a] border border-[#1a1a1a] rounded-xl p-5 flex flex-col">
               <h4 className="text-white font-bold text-[16px] mb-2">{item.name}</h4>
               <div className="text-[#c9a84c] text-[20px] mb-3">
-                {item.unit === 'add' ? `add $${item.price}` : `$${item.price}`}
+                {item.priceText}
               </div>
               <p className="text-[#999] text-[13px] mt-auto">{item.desc}</p>
             </div>
@@ -166,7 +166,7 @@ export default function PriceSheet({ market }: Props) {
               <div>
                 <h4 className="text-white font-bold text-[16px] mb-1">{item.name}</h4>
                 <div className="text-[#c9a84c] text-[20px] whitespace-nowrap mb-2">
-                  {item.from ? 'from ' : ''}${item.price}
+                  {item.priceText}
                 </div>
                 <p className="text-[#999] text-[13px]">{item.desc}</p>
               </div>
@@ -193,12 +193,12 @@ export default function PriceSheet({ market }: Props) {
               <div className="flex flex-col sm:flex-row sm:items-center gap-4 md:gap-8">
                 <div>
                   <div className="text-[#999] text-[12px] uppercase tracking-wider mb-1">Session Fee</div>
-                  <div className="text-[#c9a84c] text-[24px]">${data.brandContent.headshotDay.session}</div>
+                  <div className="text-[#c9a84c] text-[24px]">{data.brandContent.headshotDay.session}</div>
                 </div>
                 <div className="hidden sm:block text-[#333] text-2xl">+</div>
                 <div>
                   <div className="text-[#999] text-[12px] uppercase tracking-wider mb-1">Per Agent</div>
-                  <div className="text-[#c9a84c] text-[24px]">${data.brandContent.headshotDay.perAgent}</div>
+                  <div className="text-[#c9a84c] text-[24px]">{data.brandContent.headshotDay.perAgent}</div>
                 </div>
               </div>
               <p className="text-[#999] text-[13px] max-w-md">{data.brandContent.headshotDay.note}</p>
@@ -212,7 +212,7 @@ export default function PriceSheet({ market }: Props) {
               {data.brandContent.contentBatch.map((item, i) => (
                 <div key={i} className="bg-[#0a0a0a] border border-[#1a1a1a] rounded-xl p-5 flex flex-col">
                   <h4 className="text-white font-bold text-[16px] mb-2">{item.name}</h4>
-                  <div className="text-[#c9a84c] text-[20px] mb-3">${item.price}</div>
+                  <div className="text-[#c9a84c] text-[20px] mb-3">{item.priceText}</div>
                   <p className="text-[#999] text-[13px] mt-auto">{item.desc}</p>
                 </div>
               ))}
@@ -232,7 +232,7 @@ export default function PriceSheet({ market }: Props) {
                   <p className="text-[#999] text-[14px] max-w-2xl">{data.brandContent.communityVideo.film.desc}</p>
                 </div>
                 <div className="text-[#c9a84c] text-[24px] whitespace-nowrap">
-                  ${data.brandContent.communityVideo.film.price}
+                  {data.brandContent.communityVideo.film.priceText}
                 </div>
               </div>
               
@@ -241,11 +241,11 @@ export default function PriceSheet({ market }: Props) {
                   <div key={i} className="bg-[#0a0a0a] border border-[#1a1a1a] rounded-xl p-5 flex flex-col">
                     <h4 className="text-white font-bold text-[16px] mb-2">{item.name}</h4>
                     <div className="text-[#c9a84c] text-[20px] mb-1">
-                      {item.from ? 'from ' : ''}${item.price}
+                      {item.priceText}
                     </div>
                     {item.save && (
                       <div className="text-[#c9a84c]/80 text-[12px] uppercase tracking-wider mb-3">
-                        Save ${item.save}
+                        Save {item.save}
                       </div>
                     )}
                     <p className="text-[#999] text-[13px] mt-auto">{item.desc}</p>
@@ -272,7 +272,7 @@ export default function PriceSheet({ market }: Props) {
                 <h4 className="text-white font-bold text-[14px]">{item.name}</h4>
               </div>
               <div className="text-[#c9a84c] text-[16px] whitespace-nowrap mb-2">
-                {'priceText' in item ? (item as any).priceText : `$${item.price}`}
+                {item.priceText}
               </div>
               <p className="text-[#999] text-[12px]">{item.desc}</p>
             </div>
@@ -295,7 +295,7 @@ export default function PriceSheet({ market }: Props) {
               <h4 className="text-white text-[20px] font-bold mb-1">{tier.name}</h4>
               <p className="text-[#999] text-[14px] mb-4">{tier.commit}</p>
               <div className="text-[#c9a84c] text-[28px] font-light">
-                {tier.from ? 'from ' : ''}${tier.rate}
+                {tier.rate}
                 <span className="text-[14px] text-[#999] ml-1 block">/ listing</span>
               </div>
             </div>

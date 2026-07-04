@@ -9,8 +9,9 @@ export default function Footer() {
           alt="Regalis Realty Media" 
           className="max-w-[200px] w-full h-auto mb-4"
         />
-        <p className="text-[#c9a84c] text-[14px] mb-2">Regalis Realty Media</p>
-        <p className="text-[#666666] text-[12px]">All rights reserved 2025</p>
+        <p className="text-[#666666] text-[12px]">
+          &copy; 2026 Regalis Realty Media &middot; <a href="https://termsandconditions.regalisrealtymedia.com/" className="hover:text-[#c9a84c] transition-colors">Terms</a> &middot; <a href="https://privacypolicy.regalisrealtymedia.com/" className="hover:text-[#c9a84c] transition-colors">Privacy</a>
+        </p>
       </div>
     </footer>
   );
